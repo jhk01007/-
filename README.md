@@ -160,8 +160,9 @@ ALTER TABLE transaction_history DROP INDEX country;
 SELECT * FROM transaction_history WHERE country = 'United Kingdom';  
 ```
 
-<img width="200" alt="6" src="https://github.com/user-attachments/assets/2c2c1de8-50fc-4bea-a8ad-9debe2d5b84f">
+<img width="280" alt="3" src="https://github.com/user-attachments/assets/2c2c1de8-50fc-4bea-a8ad-9debe2d5b84f">
 
+0.576초가 소요되었다.  
 오히려 인덱스를 사용하지 않았을 때가 더 빠르게 실행되었다.
 
 ### 결과
