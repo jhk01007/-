@@ -13,21 +13,26 @@
 
 테스트할 테이블인 ***transaction_history***는 다음과 같다.
 
-![Untitled](https://file.notion.so/f/f/5b3a48a7-7a4d-4f04-8606-a3664b88df5d/a007a2e1-4d3e-457e-9480-51a1cb2baebd/Untitled.png?table=block&id=5be8b7f9-73d2-470e-976a-6c146b9d99dc&spaceId=5b3a48a7-7a4d-4f04-8606-a3664b88df5d&expirationTimestamp=1722816000000&signature=EbrcK7pstc48mfWjczzbh6rpn8OwwupeDfHhL3Bxn00&downloadName=Untitled.png)
+<img width="596" alt="table" src="https://github.com/user-attachments/assets/26e08779-7edb-41ae-bd53-afe4b267da57">  
+<br>
+<br>
 
 해당 테이블은 541,909개의 데이터셋을 갖고 있다.
 
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/Untitled%201.png)
+<img width="251" alt="1" src="https://github.com/user-attachments/assets/aafccba4-3556-45c6-9d4a-433f52586d23">
+<br>
+<br>
 
 다음 sql을 입력하면 해당 테이블의 인덱스 목록을 볼 수 있다.
 
 ```sql
 show index from transaction_history;
 ```
+<br>
 
 기본키인 ID로 인덱스가 자동생성되어 있는 것을 알 수 있다.
 
-```sql
+```
 Table              |Non_unique|Key_name|Seq_in_index|Column_name|Collation|Cardinality|Sub_part|Packed|Null|Index_type|Comment|Index_comment|Visible|Expression|
 -------------------+----------+--------+------------+-----------+---------+-----------+--------+------+----+----------+-------+-------------+-------+----------+
 transaction_history|         0|PRIMARY |           1|ID         |A        |     539015|        |      |    |BTREE     |       |             |YES    |          |
@@ -46,7 +51,8 @@ OS: MAC
 RDBMS: MySQL
 
 DB 관리툴: DBeaber
-
+<br>
+<br>
 ### 1번 실습
 
 transaction_history 테이블을 무작위 순서로 복사해서 기본 키 인덱스가 없는 테이블을 만들고
@@ -61,24 +67,29 @@ SELECT * FROM transaction_history order by RAND();
 
 테이블이 잘 생성되었다.
 
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/Untitled%202.png)
+<img width="1463" alt="2" src="https://github.com/user-attachments/assets/45f2f28a-f980-415b-a1a2-7076e117c48b">
+<br>
+<br>
+
 
 당연히 기본키 제약조건을 주지 않았으므로 transaction_history_cp 테이블엔 현재 인덱스가 존재하지 않는다.
 
 ```sql
 show index from transaction_history_cp;
 ```
-
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/Untitled%203.png)
+<img width="844" alt="3" src="https://github.com/user-attachments/assets/948c6290-2a50-4662-aeb3-2e1b773e1ef8">
+<br>
+<br>
 
 자 이제 본격적으로 실습을 진행해보겠다.
 
 <aside>
-💡 기본 키 인덱스가 생성되어있는 transaction_history테이블과 
-생성되어있지 않은 transaction_history_cp 테이블에 각각 
-**SELECT * FROM … WHERE id = 6;** 이라는 쿼리를 날렸을 때 실행시간에 얼마나 차이가 나는지 확인해보겠다.
-
+💡 기본 키 인덱스가 생성되어있는 transaction_history테이블과 생성되어있지 않은 transaction_history_cp 테이블에 각각<br>  
+    SELECT * FROM … WHERE id = 6; 이라는 쿼리를 날렸을 때 실행시간에 얼마나 차이가 나는지 확인해보겠다.
 </aside>
+<br>
+<br>
+<br>
 
 1. transaction_history
 
@@ -86,7 +97,8 @@ show index from transaction_history_cp;
 SELECT * FROM transaction_history WHERE id = 6;
 ```
 
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/0ffa060b-d071-4c74-8506-d97ef773c8ff.png)
+![1](https://github.com/user-attachments/assets/fd0f7bc6-ba70-40f3-9976-de376b02e2c3)
+
 
 0.002초가 소요되었다.
 
@@ -96,14 +108,16 @@ SELECT * FROM transaction_history WHERE id = 6;
 SELECT * FROM transaction_history_cp WHERE id = 6;
 ```
 
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/cd3d8ae5-8ec7-4c50-b5c3-bde712403e89.png)
+![2](https://github.com/user-attachments/assets/4bbd5665-c9da-4648-9cb0-d940acec4c95)
+
 
 0.173초가 소요되었다. 무려 81.5배 차이가 난다.
 
 ### 결과
 
 중복이 없는 기본 키 인덱스를 사용했을 때가 인덱스를 사용하지 않았을 때보다 쿼리 실행속도가 81.5배정도 더 빠르게 실행되었다.
-
+<br>
+<br>
 ### 2번 실습
 
 중복이 많은 컬럼을 인덱스로 하여서 실제로 해당 인덱스가 성능향상에 악영향을 끼치는지 확인해보는 실습을 해보겠다.
@@ -114,7 +128,8 @@ transaction_history에서 country 컬럼은 53만개 데이터 중에서 38개�
 SELECT COUNT(DISTINCT country) FROM transaction_history;
 ```
 
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/Untitled%204.png)
+<img width="359" alt="3" src="https://github.com/user-attachments/assets/acb496bb-e61c-4a45-bf51-8bcd94d134b8">
+
 
 이 country를 통해 인덱스를 생성해 실습해보도록 하겠다.
 
@@ -124,7 +139,8 @@ SELECT COUNT(DISTINCT country) FROM transaction_history;
 CREATE index country on transaction_history(country);
 ```
 
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/Untitled%205.png)
+<img width="739" alt="4" src="https://github.com/user-attachments/assets/45edfbc0-a8ea-4faf-aed7-673e252797b2">
+
 
 그리고 쿼리를 실행해주었다.
 
@@ -132,7 +148,8 @@ CREATE index country on transaction_history(country);
 SELECT * FROM transaction_history WHERE country = 'United Kingdom';  
 ```
 
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/2410cf6f-1646-4cd8-9719-a451c1040715.png)
+![5](https://github.com/user-attachments/assets/ed294e73-c0e9-4d97-a14d-f77510983318)
+
 
 0.792초가 소요되었다.
 
@@ -143,7 +160,7 @@ ALTER TABLE transaction_history DROP INDEX country;
 SELECT * FROM transaction_history WHERE country = 'United Kingdom';  
 ```
 
-![Untitled](%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%86%A8%E1%84%89%E1%85%B3%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20f5153146461e4ac0a07ebbec552c49e0/Untitled%206.png)
+<img width="200" alt="6" src="https://github.com/user-attachments/assets/2c2c1de8-50fc-4bea-a8ad-9debe2d5b84f">
 
 오히려 인덱스를 사용하지 않았을 때가 더 빠르게 실행되었다.
 
